@@ -1,0 +1,2 @@
+# git
+usefull git aliasses

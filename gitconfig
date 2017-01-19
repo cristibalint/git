@@ -24,7 +24,7 @@
   br = branch -a -v 
   diff2html = "!f() { rm -rf ~/tmp/git-diff; mkdir -p ~/tmp/git-diff; if [ \"$1\" == \"\" ]; then echo \"No input!\" && exit; fi; git diff -U1000 $@ | python /home/user/scripts/github/diff2html/diff2html.py -o ~/tmp/git-diff/diff.html && firefox file:///home/user/tmp/git-diff/; }; f" 
   diff2htmlc = "!f() { rm -rf ~/tmp/git-diff; mkdir -p ~/tmp/git-diff; git diff --cached -U1000 | python /home/user/scripts/github/diff2html/diff2html.py -o ~/tmp/git-diff/diff.html && firefox file:///home/user/tmp/git-diff/; }; f" 
-  commit-stat = "!f() { git log --all --format='%cE' | sort -u | xargs -I % sh -c 'stat=`git log --author=\"%\" --pretty=tformat: --numstat | grep -v \"^[^0-9]\" | cut -f1,2 | awk \"BEGIN{a=0;d=0}{a+=\\\\\\$1;d+=\\\\\\$2}END{print \\\"added: \\\"a\\\", deleted: \\\"d;}\"`; echo \"Stats for % - > $stat\";'; }; f | column -t"
+  commit-stat = "!f() { git log --all --format='%cE' | sort -u | xargs -I % sh -c 'stat=`git log --author=\"%\" --pretty=tformat: --numstat --no-merges | grep -v \"^[^0-9]\" | cut -f1,2 | awk \"BEGIN{a=0;d=0}{a+=\\\\\\$1;d+=\\\\\\$2}END{print \\\"added: \\\"a\\\", deleted: \\\"d;}\"`; echo \"Stats for % - > $stat\";'; }; f | column -t"
   sm-update = submodule update --init --recursive 
   sm-reset = submodule foreach \"git reset --hard HEAD\"
 
